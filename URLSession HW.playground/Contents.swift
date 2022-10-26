@@ -27,7 +27,8 @@ getData(urlReuaest: currenciesURL)
 
 // MARK: - Задание⭐
 func md5Hash(_ source: String) -> String {
-    return Insecure.MD5.hash(data: source.data(using: .utf8)!).map { String(format: "%02hhx", $0) }.joined()
+    guard let sourceData = source.data(using: .utf8) else { return "" }
+    return Insecure.MD5.hash(data: sourceData).map { String(format: "%02hhx", $0) }.joined()
 }
 
 let marvelPrivateKey = "2895055c5371280d7387073cc3ef477e45632869"
