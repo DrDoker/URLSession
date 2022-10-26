@@ -3,7 +3,7 @@ import CryptoKit
 
 // MARK: - Задание
 
-let currenciesURL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+let currenciesURLString = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
 
 func getData(urlReuaest: String) {
     let urlReuaest = URL(string: urlReuaest)
@@ -23,14 +23,13 @@ func getData(urlReuaest: String) {
     }.resume()
 }
 
-getData(urlReuaest: currenciesURL)
+//getData(urlReuaest: currenciesURL)
 
 // MARK: - Задание⭐
 func md5Hash(_ source: String) -> String {
     return Insecure.MD5.hash(data: source.data(using: .utf8)!).map { String(format: "%02hhx", $0) }.joined()
 }
 
-let startURL = "https://gateway.marvel.com/v1/public/"
 let marvelPrivateKey = "2895055c5371280d7387073cc3ef477e45632869"
 let marvelPublicKey = "d8182c561967ebc637775965e3484849"
 
@@ -38,6 +37,18 @@ let ts = "Serhii-Tkachenko"
 let hashString = ts + marvelPrivateKey + marvelPublicKey
 let hashMD5 = md5Hash(hashString)
 
-let marvelURL = "\(startURL)characters?name=Iron%20Man&ts=\(ts)&apikey=\(marvelPublicKey)&hash=\(hashMD5)"
+let searchItem = "Loki"
 
-getData(urlReuaest: marvelURL)
+var urlComponents = URLComponents()
+urlComponents.scheme = "https"
+urlComponents.host = "gateway.marvel.com"
+urlComponents.path = "/v1/public/characters"
+urlComponents.queryItems = [
+   URLQueryItem(name: "name", value: searchItem),
+   URLQueryItem(name: "ts", value: ts),
+   URLQueryItem(name: "apikey", value: marvelPublicKey),
+   URLQueryItem(name: "hash", value: hashMD5)
+]
+
+let urlString = urlComponents.url?.absoluteString ?? ""
+getData(urlReuaest: urlString)
