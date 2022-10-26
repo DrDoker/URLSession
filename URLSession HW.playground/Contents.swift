@@ -3,7 +3,7 @@ import CryptoKit
 
 // MARK: - Задание
 
-let currenciesURLString = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+let currenciesURL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
 
 func getData(urlReuaest: String) {
     let urlReuaest = URL(string: urlReuaest)
@@ -23,7 +23,7 @@ func getData(urlReuaest: String) {
     }.resume()
 }
 
-//getData(urlReuaest: currenciesURL)
+getData(urlReuaest: currenciesURL)
 
 // MARK: - Задание⭐
 func md5Hash(_ source: String) -> String {
